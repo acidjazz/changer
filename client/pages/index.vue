@@ -72,7 +72,10 @@ export default {
       const wallet = this.parse(this.wallet)
       try {
         this.result = (await this.$axios.get('/change', { params: { price, wallet } })).data.data
-      } catch (e) {}
+      } catch (e) {
+        this.state = 'active'
+        return
+      }
       this.state = 'active'
       this.$toast.success('Change calculated')
     },
