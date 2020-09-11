@@ -2,10 +2,10 @@
   <div class="container p-2 lg:p-8 flex flex-col max-w-xl">
     <div class="my-8 flex flex-col lg:flex-row items-center justify-between">
       <CurrencyInput v-model="price" label="Price" class="mb-4" />
-      <CurrencyInput v-model="wallet" label="Wallet" class="mb-4" />
+      <CurrencyInput v-model="wallet" label="Wallet" class="mb-4" @keydown.enter.native="change" />
     </div>
     <div class="flex items-center justify-center lg:justify-end mb-4">
-      <PushButton theme="indigo" @click.native="change" :state="state">
+      <PushButton theme="indigo" :state="state" @click.native="change">
         Get Change
       </PushButton>
     </div>
