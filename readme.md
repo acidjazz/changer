@@ -18,7 +18,7 @@ git clone git@github.com:acidjazz/changer.git; cd changer; yarn; composer instal
 * run `yarn api` (alias for `./artisan serve`) in another terminal for our laravel API
 * visit [http://localhost:3000](http://localhost:3000)
 
-### About the boilerplate
+### About the [boilerplate](https://github.com/acidjazz/laranuxt)
 
 <p align="center">
   <a href="https://laravel.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png" width="92" height="92" /></a>
