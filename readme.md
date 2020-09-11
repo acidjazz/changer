@@ -2,7 +2,22 @@
   <img src="https://raw.githubusercontent.com/acidjazz/changer/master/client/static/ss.png" />
 </p>
 
-> laranuxt sample app that delivers change in denominations
+> sample app that delivers change in denominations
+### Installation
+
+* clone from github
+* run `yarn` and `composer install` to install all of your deps
+* copy `.env.example` to `.env` and configure it to your likings
+* TL;DR
+ ```bash
+git clone git@github.com:acidjazz/changer.git; cd laranuxt; yarn; composer install; cp .env.example .env;
+ ```
+
+### Local Environment
+* run `yarn dev` in one terminal for our nuxt dev setup
+* run `yarn api` (alias for `./artisan serve`) in another terminal for our laravel API
+
+### About the boilerplate
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/acidjazz/laranuxt/master/client/static/laranuxt.png" />
@@ -34,22 +49,4 @@
   * [metapi](https://github.com/acidjazz/metapi) - API helpers and utilities - `v2.1.1`
   * [debugbar](https://github.com/barryvdh/laravel-debugbar) - awesome debugbar for our API - `v3.5.1`
   * [ide-helper](https://github.com/barryvdh/laravel-ide-helper) - Helper files to enable accurate IDE autocompletion - `v2.8.0`
-
-### Installation
-
-* clone from github
-* run `yarn` and `composer install` to install all of your deps
-* copy `.env.example` to `.env` and configure it to your likings
-* TL;DR
- ```bash
-git clone git@github.com:acidjazz/laranuxt.git; cd laranuxt; yarn; composer install; cp .env.example .env;
- ```
-* Feel free to delete excess media in  `/client/static/`, just images for the readme
-
-
-### Local Environment
-* run `yarn dev` in one terminal for our nuxt dev setup
-* run `yarn api` (alias for `./artisan serve`) in another terminal for our laravel API
-
-### Features
 
