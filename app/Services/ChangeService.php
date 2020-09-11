@@ -14,24 +14,30 @@ class ChangeService
      * @var array|int[] drawer
      */
     private array $drawer = [
-        '100' => 10000,
-        '50' => 5000,
-        '20' => 2000,
-        '10' => 1000,
-        '5' => 500,
-        '1' => 100,
-        '.25' => 25,
-        '.10' => 10,
-        '.5' => 5,
-        '.1' => 1,
+        [ 'name' => '100', 'value' => 10000 ],
+        [ 'name' => '50', 'value' => 5000 ],
+        [ 'name' => '20', 'value' => 2000 ],
+        [ 'name' => '10', 'value' => 1000 ],
+        [ 'name' => '1', 'value' => 100 ],
+        [ 'name' => '.25', 'value' => 25 ],
+        [ 'name' => '.5', 'value' => 5 ],
+        [ 'name' => '.1', 'value' => 1 ],
     ];
 
     /**
-     * Change returned to customer
+     * Each individual bill
      *
      * @var array $change
      */
     private array $change;
+
+
+    /**
+     * Bills stacked
+     *
+     * @var array $stacked
+     */
+    private array $stacked = [];
 
     /**
      * ChangeService constructor.
@@ -51,21 +57,33 @@ class ChangeService
     public function change(int $wallet)
     {
         $diff = $wallet - $this->price;
-        foreach ($this->drawer as $bill=>$value) {
+
+        /* Populate individual moneys */
+        foreach ($this->drawer as $bill) {
             while (true) {
-                if ($value <= $diff) {
-                    if (!isset($this->change[$bill])) {
-                        $this->change[$bill] = 1;
-                    } else {
-                        $this->change[$bill]++;
-                    }
-                    $diff -= $value;
+                if ($bill['value'] <= $diff) {
+                    $this->change[] = $bill;
+                    $diff -= $bill['value'];
                 } else {
                     break;
                 }
             }
         }
-        krsort($this->change, SORT_NUMERIC);
-        return $this->change;
+
+        /* Stack our moneys with an amount */
+        foreach ($this->change as $bill) {
+            if (array_filter($this->stacked, fn ($s) => $s['name'] === $bill['name']) === []) {
+                $this->stacked[] =
+                    array_merge($bill,
+                        ['amount' => count(array_filter($this->change, fn($b) => $b['name'] === $bill['name']))]
+                );
+            }
+        }
+
+        return $this->stacked;
+    }
+
+    private function same(array $a, array $b) {
+        return $a['name'] === $b['name'];
     }
 }

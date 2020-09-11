@@ -1,4 +1,10 @@
 <p align="center">
+  <img src="https://raw.githubusercontent.com/acidjazz/changer/master/client/static/ss.png" />
+</p>
+
+> laranuxt sample app that delivers change in denominations
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/acidjazz/laranuxt/master/client/static/laranuxt.png" />
 </p>
 
