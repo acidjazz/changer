@@ -10,7 +10,7 @@
 * copy `.env.example` to `.env` and configure it to your likings
 * TL;DR
  ```bash
-git clone git@github.com:acidjazz/changer.git; cd laranuxt; yarn; composer install; cp .env.example .env;
+git clone git@github.com:acidjazz/changer.git; cd changer; yarn; composer install; cp .env.example .env;
  ```
 
 ### Local Environment
