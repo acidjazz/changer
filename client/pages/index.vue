@@ -26,28 +26,20 @@
               secondary="text-green-500"
             />
           </div>
-          <div v-else-if="bill.name !== '.1'" class="flex">
-            <IconMoneyCoin
-              v-for="n in bill.amount"
-              :key="n"
-              class="w-6 h-6"
-              :class="{'-ml-2': n !== 1}"
-            />
-          </div>
           <div v-else class="flex">
             <IconMoneyCoin
               v-for="n in bill.amount"
               :key="n"
               class="w-6 h-6"
               :class="{'-ml-2': n !== 1}"
-              primary="text-orange-800"
-              secondary="text-orange-900"
+              :primary="(bill.name === '.1') ? 'text-orange-800' : 'text-gray-400'"
+              :secondary="(bill.name === '.1') ? 'text-orange-900' : 'text-gray-500'"
             />
           </div>
           <div class="mx-2 text-sm text-gray-400">
             {{ bill.amount }}x
           </div>
-          <div v-if="is_bill(bill)">
+          <div v-if="!bill.name.includes('.')">
             ${{ bill.name }}
           </div>
           <div v-else>
@@ -72,7 +64,6 @@ export default {
     parse (string) {
       return parseInt(string.replace(/\./, ''))
     },
-    is_bill (bill) { return !bill.name.includes('.') },
     async change () {
       const price = this.parse(this.price)
       const wallet = this.parse(this.wallet)
