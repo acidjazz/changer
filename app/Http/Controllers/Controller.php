@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use acidjazz\metapi\MetApi;
+use App\Services\ChangeService;
 use Faker\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -31,37 +32,21 @@ class Controller extends BaseController
         return '<pre>'.implode("\n", $routes).'</pre>';
     }
 
-    /**
-     * Example endpoint returning random users
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function example(Request $request)
+    public function change(Request $request)
     {
         $this
-            ->option('count', 'required|integer')
+            ->option('price', 'required|integer')
+            ->option('wallet', 'required|integer')
             ->verify();
 
-        $faker = Factory::create();
-        $users = [];
-
-        for ($i = 0; $i !== (int) $request->get('count'); $i++) {
-            $email = $faker->unique()->safeEmail;
-            $users[] = [
-                'name' => $faker->name(),
-                'job' => $faker->jobTitle,
-                'email' => $email,
-                'phone' => $faker->phoneNumber(),
-                'avatar' => 'http://i.pravatar.cc/150?u='.$email,
-            ];
+        if ((int) $this->request->wallet < (int) $this->request->price) {
+            return $this->error('change.insufficient');
         }
 
-        return $this->render($users);
+        $change = (new ChangeService((int) $request->price))
+            ->change((int) $request->wallet);
+
+        return $this->render(['change' => $change]);
     }
 
-    public function error()
-    {
-        return $this->render(['forced_error' => $forced_error]);
-    }
 }

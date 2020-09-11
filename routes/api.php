@@ -15,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Controller::class, 'routes'])->name('route information');
-Route::get('/example', [Controller::class, 'example'])->name('example route');
-Route::get('/error', [Controller::class, 'error'])->name('error route');
+Route::get('/change', [Controller::class, 'change'])->name('route information');
 

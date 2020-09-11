@@ -1,22 +1,58 @@
 <template>
-  <div class="container p-2 lg:p-8 flex flex-col">
-    <div class="m-8 flex items-center justify-center">
-      <Logo />
+  <div class="container p-2 lg:p-8 flex flex-col max-w-xl">
+    <div class="my-8 flex flex-col lg:flex-row items-center justify-between">
+      <CurrencyInput v-model="price" label="Price" class="mb-4" />
+      <CurrencyInput v-model="wallet" label="Wallet" class="mb-4" />
     </div>
-    <ul v-if="users.length === 0" class="grid grid-cols-1 gap-6 bg-gray-100 rounded p-8 w-full sm:grid-cols-2 lg:grid-cols-3">
-      <ContactCardSkeleton v-for="i in 9" :key="`skel-${i}`" />
-    </ul>
-    <ul v-if="users.length &gt; 0" class="grid grid-cols-1 gap-6 bg-gray-100 rounded p-8 w-full sm:grid-cols-2 lg:grid-cols-3">
-      <ContactCard v-for="(user, index) in users" :key="index" :user="user" />
-    </ul>
-    <div class="text-center mt-4">
-      <span>provided by endpoint</span><span>&nbsp;</span>
-      <a class="text-blue-400" :href="`${$config.apiUrl}/example?count=9`">/example</a>
-      <span>&nbsp;</span>
-      <span class="text-gray-400 text-sm">(2 second delay)</span>
+    <div class="flex items-center justify-end">
+      <PushButton theme="indigo" @click.native="change">
+        Get Change
+      </PushButton>
     </div>
-    <div class="flex justify-center my-4">
-      tailvue examples:
+    <div v-if="result !== false" class="flex flex-col items-center">
+      <div
+        v-for="(amount, bill) in result.change"
+        :key="bill"
+        class="flex w-36 justify-start items-center"
+      >
+        <div v-if="bill[0] !== '.'" class="flex">
+          <IconMoneyBill
+            v-for="n in amount"
+            :key="n"
+            class="w-6 h-6"
+            :class="{'-ml-2': n !== 1}"
+            primary="text-green-400"
+            secondary="text-green-500"
+          />
+        </div>
+        <div v-else-if="bill !== '.1'" class="flex">
+          <IconMoneyCoin
+            v-for="n in amount"
+            :key="n"
+            class="w-6 h-6"
+            :class="{'-ml-2': n !== 1}"
+          />
+        </div>
+        <div v-else class="flex">
+          <IconMoneyCoin
+            v-for="n in amount"
+            :key="n"
+            class="w-6 h-6"
+            :class="{'-ml-2': n !== 1}"
+            primary="text-orange-800"
+            secondary="text-orange-900"
+          />
+        </div>
+        <div class="mx-2 text-sm text-gray-400">
+          {{ amount }}x
+        </div>
+        <div v-if="is_bill(bill)">
+          ${{ bill }}
+        </div>
+        <div v-else>
+          {{ bill.replace(/./, '') }}c
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,22 +61,22 @@
 export default {
   data () {
     return {
-      users: [],
-      count: 9,
+      price: '',
+      wallet: '',
+      result: false,
     }
   },
-  mounted () {
-    this.get(this.count)
-  },
   methods: {
-    async get (count) {
-      await this.$sleep(2000)
-      this.users = (await this.$axios.get('example', { params: { count } })).data.data
+    parse (string) {
+      return parseInt(string.replace(/\./, ''))
     },
-    total (count) {
-      this.users = []
-      this.count = count
-      this.get(this.count)
+    is_bill (value) { return !value.includes('.') },
+    async change () {
+      const price = this.parse(this.price)
+      const wallet = this.parse(this.wallet)
+      try {
+        this.result = (await this.$axios.get('/change', { params: { price, wallet } })).data.data
+      } catch (e) {}
     },
   },
 }

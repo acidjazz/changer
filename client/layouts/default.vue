@@ -1,6 +1,9 @@
 <template>
-  <div class="flex items-center justify-center">
-    <Nuxt />
+  <div>
+    <HeaderBar />
+    <div class="flex items-center justify-center">
+      <Nuxt />
+    </div>
   </div>
 </template>
 

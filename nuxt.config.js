@@ -41,6 +41,7 @@ export default {
   */
   plugins: [
     '@/plugins/helpers.js',
+    '@/plugins/axios.js',
   ],
   /*
   ** Auto import components
