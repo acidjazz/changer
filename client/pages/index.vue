@@ -5,7 +5,7 @@
       <CurrencyInput v-model="wallet" label="Wallet" class="mb-4" />
     </div>
     <div class="flex items-center justify-center lg:justify-end mb-4">
-      <PushButton theme="indigo" @click.native="change">
+      <PushButton theme="indigo" @click.native="change" :state="state">
         Get Change
       </PushButton>
     </div>
@@ -58,6 +58,7 @@ export default {
       price: '',
       wallet: '',
       result: false,
+      state: 'active',
     }
   },
   methods: {
@@ -65,11 +66,15 @@ export default {
       return parseInt(string.replace(/\./, ''))
     },
     async change () {
+      this.state = 'loading'
+      await this.$sleep(2000)
       const price = this.parse(this.price)
       const wallet = this.parse(this.wallet)
       try {
         this.result = (await this.$axios.get('/change', { params: { price, wallet } })).data.data
       } catch (e) {}
+      this.state = 'active'
+      this.$toast.success('Change calculated')
     },
   },
 }
