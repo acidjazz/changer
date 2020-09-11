@@ -1,8 +1,5 @@
 <?php
-
-
 namespace App\Services;
-
 
 class ChangeService
 {
@@ -30,7 +27,6 @@ class ChangeService
      * @var array $change
      */
     private array $change;
-
 
     /**
      * Bills stacked
@@ -79,11 +75,6 @@ class ChangeService
                 );
             }
         }
-
         return $this->stacked;
-    }
-
-    private function same(array $a, array $b) {
-        return $a['name'] === $b['name'];
     }
 }
