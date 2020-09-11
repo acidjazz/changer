@@ -6,8 +6,8 @@
 ### Installation
 
 * clone from github
-* run `yarn` and `composer install` to install all of your deps
-* copy `.env.example` to `.env` and configure it to your likings
+* run `yarn` and `composer install` to install all of your dependencies
+* copy `.env.example` to `.env` and configure it to your likings 
 * TL;DR
  ```bash
 git clone git@github.com:acidjazz/changer.git; cd changer; yarn; composer install; cp .env.example .env;
@@ -17,6 +17,7 @@ git clone git@github.com:acidjazz/changer.git; cd changer; yarn; composer instal
 * run `yarn dev` in one terminal for our nuxt dev setup
 * run `yarn api` (alias for `./artisan serve`) in another terminal for our laravel API
 * visit [http://localhost:3000](http://localhost:3000)
+* visit [http://localhost:8000/change](http://localhost:8000/change?price=4000&wallet=5500) to view our endpoint 
 
 ### About the [boilerplate](https://github.com/acidjazz/laranuxt)
 
