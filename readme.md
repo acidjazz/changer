@@ -16,6 +16,7 @@ git clone git@github.com:acidjazz/changer.git; cd changer; yarn; composer instal
 ### Local Environment
 * run `yarn dev` in one terminal for our nuxt dev setup
 * run `yarn api` (alias for `./artisan serve`) in another terminal for our laravel API
+* visit [http://localhost:3000](http://localhost:3000)
 
 ### About the boilerplate
 
